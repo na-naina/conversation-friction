@@ -60,11 +60,12 @@ class ModelConfig:
 
 
 # Gemma 3 model configurations
-# Note: SAE repos are from Gemma Scope 2
+# SAE repos follow pattern: google/gemma-scope-2-{size}-pt (for base model SAEs)
+# SAEs are trained on base (PT) models but transfer OK to instruction-tuned (IT)
 GEMMA3_1B = ModelConfig(
     name="gemma3-1b",
-    hf_id="google/gemma-3-1b-it",
-    sae_repo="google/gemma-scope-1b-pt-res",  # residual stream SAEs
+    hf_id="google/gemma-3-1b-it",  # We use IT for chat, but SAEs are from PT
+    sae_repo="google/gemma-scope-2-1b-pt",  # Gemma Scope 2 format
     num_layers=18,
     hidden_size=1152,
 )
@@ -72,7 +73,7 @@ GEMMA3_1B = ModelConfig(
 GEMMA3_4B = ModelConfig(
     name="gemma3-4b",
     hf_id="google/gemma-3-4b-it",
-    sae_repo="google/gemma-scope-4b-pt-res",  # residual stream SAEs
+    sae_repo="google/gemma-scope-2-4b-pt",
     num_layers=26,
     hidden_size=2560,
 )
@@ -80,7 +81,7 @@ GEMMA3_4B = ModelConfig(
 GEMMA3_12B = ModelConfig(
     name="gemma3-12b",
     hf_id="google/gemma-3-12b-it",
-    sae_repo="google/gemma-scope-12b-pt-res",
+    sae_repo="google/gemma-scope-2-12b-pt",
     num_layers=40,
     hidden_size=3840,
 )
@@ -88,7 +89,7 @@ GEMMA3_12B = ModelConfig(
 GEMMA3_27B = ModelConfig(
     name="gemma3-27b",
     hf_id="google/gemma-3-27b-it",
-    sae_repo="google/gemma-scope-27b-pt-res",
+    sae_repo="google/gemma-scope-2-27b-pt",
     num_layers=46,
     hidden_size=4608,
 )

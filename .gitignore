@@ -57,6 +57,9 @@ wandb/
 .DS_Store
 Thumbs.db
 
+# Tutorial examples (not part of experiment)
+tutorial-example/
+
 # Secrets
 .env
 *.key
