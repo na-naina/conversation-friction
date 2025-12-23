@@ -87,12 +87,12 @@ class ActivationCollector:
             return self.model.model.layers[layer_idx]
         elif hasattr(self.model, "language_model"):
             # Gemma 3 4B+ (multimodal): Gemma3ForConditionalGeneration
-            # Structure: model.language_model.model.layers
+            # Structure: model.language_model.layers
             lm = self.model.language_model
-            if hasattr(lm, "model") and hasattr(lm.model, "layers"):
-                return lm.model.layers[layer_idx]
+            if hasattr(lm, "layers"):
+                return lm.layers[layer_idx]
             raise ValueError(
-                f"Multimodal model but cannot find layers at language_model.model.layers"
+                f"Multimodal model but cannot find layers at language_model.layers"
             )
         elif hasattr(self.model, "transformer") and hasattr(self.model.transformer, "h"):
             # GPT-2 style
