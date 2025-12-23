@@ -10,7 +10,7 @@ if [ -z "$VIRTUAL_ENV" ]; then
 fi
 
 MODEL_SIZE=${1:-"4b"}
-NUM_TURNS=15
+NUM_TURNS=14  # Max 14 (number of MMLU-Pro categories)
 NUM_CONVOS=50
 
 run_experiment() {

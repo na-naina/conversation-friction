@@ -166,8 +166,8 @@ def main() -> None:
     parser.add_argument(
         "--num-turns",
         type=int,
-        default=15,
-        help="Number of turns per conversation",
+        default=14,
+        help="Number of turns per conversation (max 14 due to MMLU-Pro categories)",
     )
     parser.add_argument(
         "--num-conversations",
@@ -195,9 +195,12 @@ def main() -> None:
     args = parser.parse_args()
 
     # Create config
+    # Cap num_turns at 14 (number of MMLU-Pro categories)
+    num_turns = min(args.num_turns, 14)
     config = ExperimentConfig(
         model_size=args.model_size,
-        num_turns=args.num_turns,
+        num_turns=num_turns,
+        num_topics=num_turns,  # One topic per turn
         num_conversations_per_condition=args.num_conversations,
         seed=args.seed,
     )

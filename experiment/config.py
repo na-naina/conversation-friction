@@ -114,11 +114,11 @@ class ExperimentConfig:
     model_size: Literal["1b", "4b", "12b", "27b"] = "4b"
 
     # Conversation parameters
-    num_turns: int = 15  # questions per conversation
+    num_turns: int = 14  # questions per conversation (max 14 due to MMLU-Pro categories)
     num_conversations_per_condition: int = 50
 
     # Topic selection
-    num_topics: int = 15  # should match or exceed num_turns
+    num_topics: int = 14  # max is 14 (number of MMLU-Pro categories)
     min_topic_distance: float = 0.3  # minimum cosine distance between topics
 
     # Data paths
