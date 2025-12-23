@@ -71,15 +71,19 @@ def run_behavioral_experiment(
 
     # Step 3: Run conversations
     print("Step 3: Running conversations...")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    results_path = results_dir / f"results_{timestamp}.json"
+    checkpoint_path = results_dir / f"checkpoint_{timestamp}.json"
+
     results = run_experiment_batch(
         config=config,
         dataset=dataset,
         topics=topics,
+        checkpoint_path=checkpoint_path,
+        checkpoint_every=10,  # Save every 10 conversations
     )
 
-    # Step 4: Save results
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    results_path = results_dir / f"results_{timestamp}.json"
+    # Step 4: Save final results
     save_results(results, results_path)
     print()
 

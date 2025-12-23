@@ -345,6 +345,8 @@ def run_experiment_batch(
     topics: list[str],
     conditions: list[Condition] | None = None,
     progress_callback: Any = None,
+    checkpoint_path: Path | None = None,
+    checkpoint_every: int = 10,
 ) -> list[ConversationResult]:
     """Run a batch of conversations across conditions.
 
@@ -354,6 +356,8 @@ def run_experiment_batch(
         topics: List of topics to use
         conditions: Conditions to run (defaults to all)
         progress_callback: Optional callback for progress updates
+        checkpoint_path: Path to save incremental checkpoints
+        checkpoint_every: Save checkpoint every N conversations
 
     Returns:
         List of all conversation results
@@ -390,6 +394,11 @@ def run_experiment_batch(
                 # Progress callback
                 if progress_callback:
                     progress_callback(result)
+
+                # Checkpoint save
+                if checkpoint_path and len(results) % checkpoint_every == 0:
+                    save_results(results, checkpoint_path)
+                    tqdm.write(f"  [Checkpoint: {len(results)} conversations saved]")
 
     return results
 

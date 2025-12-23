@@ -1,0 +1,394 @@
+[
+  {
+    "conversation_id": "complete_grateful_000",
+    "condition": "complete_grateful",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:05:20.498422",
+    "total_time_seconds": 26.358266592025757,
+    "overall_accuracy": 0.6666666666666666,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_460",
+        "correct_answer": "I",
+        "parsed_answer": "I",
+        "is_correct": true,
+        "response_length": 666,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_10113",
+        "correct_answer": "H",
+        "parsed_answer": "H",
+        "is_correct": true,
+        "response_length": 952,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10348",
+        "correct_answer": "D",
+        "parsed_answer": "G",
+        "is_correct": false,
+        "response_length": 1131,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  },
+  {
+    "conversation_id": "complete_grateful_001",
+    "condition": "complete_grateful",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:05:46.857168",
+    "total_time_seconds": 18.881734609603882,
+    "overall_accuracy": 0.0,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_686",
+        "correct_answer": "D",
+        "parsed_answer": "C",
+        "is_correct": false,
+        "response_length": 677,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_9879",
+        "correct_answer": "H",
+        "parsed_answer": "A",
+        "is_correct": false,
+        "response_length": 1088,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10294",
+        "correct_answer": "J",
+        "parsed_answer": "B",
+        "is_correct": false,
+        "response_length": 492,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  },
+  {
+    "conversation_id": "complete_neutral_000",
+    "condition": "complete_neutral",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:06:05.739294",
+    "total_time_seconds": 23.492023468017578,
+    "overall_accuracy": 0.0,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_258",
+        "correct_answer": "H",
+        "parsed_answer": "C",
+        "is_correct": false,
+        "response_length": 680,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_9965",
+        "correct_answer": "F",
+        "parsed_answer": "B",
+        "is_correct": false,
+        "response_length": 1068,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10555",
+        "correct_answer": "A",
+        "parsed_answer": "F",
+        "is_correct": false,
+        "response_length": 702,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  },
+  {
+    "conversation_id": "complete_neutral_001",
+    "condition": "complete_neutral",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:06:29.231732",
+    "total_time_seconds": 24.934672117233276,
+    "overall_accuracy": 0.0,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_521",
+        "correct_answer": "F",
+        "parsed_answer": "A",
+        "is_correct": false,
+        "response_length": 635,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_8984",
+        "correct_answer": "C",
+        "parsed_answer": "A",
+        "is_correct": false,
+        "response_length": 1070,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10240",
+        "correct_answer": "D",
+        "parsed_answer": "A",
+        "is_correct": false,
+        "response_length": 1044,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  },
+  {
+    "conversation_id": "interrupt_polite_000",
+    "condition": "interrupt_polite",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:06:54.166794",
+    "total_time_seconds": 24.874250888824463,
+    "overall_accuracy": 0.0,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_645",
+        "correct_answer": "G",
+        "parsed_answer": "C",
+        "is_correct": false,
+        "response_length": 489,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 119,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_9070",
+        "correct_answer": "F",
+        "parsed_answer": "B",
+        "is_correct": false,
+        "response_length": 1079,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 216,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10455",
+        "correct_answer": "F",
+        "parsed_answer": "B",
+        "is_correct": false,
+        "response_length": 1039,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  },
+  {
+    "conversation_id": "interrupt_polite_001",
+    "condition": "interrupt_polite",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:07:19.041497",
+    "total_time_seconds": 23.78261137008667,
+    "overall_accuracy": 0.0,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_109",
+        "correct_answer": "E",
+        "parsed_answer": "A",
+        "is_correct": false,
+        "response_length": 712,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 175,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_9686",
+        "correct_answer": "I",
+        "parsed_answer": "H",
+        "is_correct": false,
+        "response_length": 1124,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 215,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10252",
+        "correct_answer": "A",
+        "parsed_answer": "C",
+        "is_correct": false,
+        "response_length": 877,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  },
+  {
+    "conversation_id": "interrupt_blunt_000",
+    "condition": "interrupt_blunt",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:07:42.824521",
+    "total_time_seconds": 25.6302547454834,
+    "overall_accuracy": 0.0,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_50",
+        "correct_answer": "H",
+        "parsed_answer": null,
+        "is_correct": false,
+        "response_length": 656,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 138,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_9784",
+        "correct_answer": "B",
+        "parsed_answer": "A",
+        "is_correct": false,
+        "response_length": 774,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 200,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10552",
+        "correct_answer": "I",
+        "parsed_answer": "A",
+        "is_correct": false,
+        "response_length": 1023,
+        "hedging_count": 1,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  },
+  {
+    "conversation_id": "interrupt_blunt_001",
+    "condition": "interrupt_blunt",
+    "model_name": "gemma3-1b",
+    "timestamp": "2025-12-23T15:08:08.455456",
+    "total_time_seconds": 25.085269451141357,
+    "overall_accuracy": 0.3333333333333333,
+    "turns": [
+      {
+        "turn_number": 1,
+        "topic": "business",
+        "question_id": "business_729",
+        "correct_answer": "J",
+        "parsed_answer": null,
+        "is_correct": false,
+        "response_length": 685,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 165,
+        "activations_path": null
+      },
+      {
+        "turn_number": 2,
+        "topic": "physics",
+        "question_id": "physics_9691",
+        "correct_answer": "I",
+        "parsed_answer": "I",
+        "is_correct": true,
+        "response_length": 864,
+        "hedging_count": 0,
+        "was_truncated": true,
+        "truncated_length": 240,
+        "activations_path": null
+      },
+      {
+        "turn_number": 3,
+        "topic": "computer science",
+        "question_id": "computer science_10265",
+        "correct_answer": "F",
+        "parsed_answer": "D",
+        "is_correct": false,
+        "response_length": 1078,
+        "hedging_count": 0,
+        "was_truncated": false,
+        "truncated_length": null,
+        "activations_path": null
+      }
+    ]
+  }
+]
