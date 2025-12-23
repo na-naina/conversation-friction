@@ -31,13 +31,17 @@ class TurnResult:
     turn_number: int
     topic: str
     question_id: str
-    question_text: str
+    question_text: str  # Full question with options
     correct_answer: str
-    model_response: str
+    model_response: str  # Full model response
     parsed_answer: str | None
     is_correct: bool
     response_length: int
     hedging_count: int
+    # The actual user message sent (includes transition phrase for turns > 1)
+    user_message: str = ""
+    # What was stored in conversation history (may be truncated)
+    history_response: str = ""
     # Whether this response was truncated in conversation history
     was_truncated: bool = False
     truncated_length: int | None = None
@@ -93,6 +97,10 @@ class ConversationResult:
                     "turn_number": t.turn_number,
                     "topic": t.topic,
                     "question_id": t.question_id,
+                    "question_text": t.question_text,
+                    "user_message": t.user_message,
+                    "model_response": t.model_response,
+                    "history_response": t.history_response,
                     "correct_answer": t.correct_answer,
                     "parsed_answer": t.parsed_answer,
                     "is_correct": t.is_correct,
@@ -315,18 +323,23 @@ class ConversationRunner:
                 was_truncated = False
                 truncated_length = None
 
-            # Create turn result (with full response for data)
+            # Get the user message that was sent (last message in list)
+            user_message = messages[-1]["content"]
+
+            # Create turn result (with full conversation data)
             turn = TurnResult(
                 turn_number=turn_num,
                 topic=question.category,
                 question_id=question.question_id,
-                question_text=question.question,
+                question_text=question.format_with_instruction(),  # Full question with options
                 correct_answer=question.answer,
                 model_response=response,
                 parsed_answer=parsed,
                 is_correct=is_correct,
                 response_length=len(response),
                 hedging_count=self.count_hedging(response),
+                user_message=user_message,
+                history_response=history_response,
                 was_truncated=was_truncated,
                 truncated_length=truncated_length,
             )
