@@ -19,6 +19,7 @@ from experiment.config import (
     Condition,
     CONDITION_TEMPLATES,
     ExperimentConfig,
+    INTERRUPT_CONDITIONS,
 )
 from experiment.dataset import Question, MMLUProDataset, check_answer
 
@@ -37,6 +38,9 @@ class TurnResult:
     is_correct: bool
     response_length: int
     hedging_count: int
+    # Whether this response was truncated in conversation history
+    was_truncated: bool = False
+    truncated_length: int | None = None
     # Optional activation data (collected separately)
     activations_path: str | None = None
 
@@ -94,6 +98,8 @@ class ConversationResult:
                     "is_correct": t.is_correct,
                     "response_length": t.response_length,
                     "hedging_count": t.hedging_count,
+                    "was_truncated": t.was_truncated,
+                    "truncated_length": t.truncated_length,
                     "activations_path": t.activations_path,
                 }
                 for t in self.turns
@@ -155,6 +161,22 @@ class ConversationRunner:
     def count_hedging(self, text: str) -> int:
         """Count hedging markers in text."""
         return len(self._hedging_pattern.findall(text))
+
+    def _truncate_response(self, response: str, max_tokens: int) -> str:
+        """Truncate response to approximately max_tokens.
+
+        For interrupt conditions, we truncate the response that goes into
+        conversation history to simulate the model being cut off mid-response.
+        """
+        tokens = self.tokenizer.encode(response, add_special_tokens=False)
+        if len(tokens) <= max_tokens:
+            return response
+
+        truncated_tokens = tokens[:max_tokens]
+        truncated = self.tokenizer.decode(truncated_tokens, skip_special_tokens=True)
+
+        # Add indicator that response was cut off (this is what the model sees)
+        return truncated.rstrip() + "..."
 
     def _build_conversation_messages(
         self,
@@ -272,7 +294,26 @@ class ConversationRunner:
             # Check answer
             is_correct, parsed = check_answer(question, response)
 
-            # Create turn result
+            # For interrupt conditions, truncate response in conversation history
+            # This simulates the model being cut off mid-response
+            is_interrupt = condition in INTERRUPT_CONDITIONS
+            is_last_turn = turn_num == len(questions)
+
+            if is_interrupt and not is_last_turn:
+                # Truncate for history - model sees its response was cut off
+                history_response = self._truncate_response(
+                    response,
+                    self.config.interrupt_truncate_tokens,
+                )
+                was_truncated = True
+                truncated_length = len(history_response)
+            else:
+                # Complete conditions: full response in history
+                history_response = response
+                was_truncated = False
+                truncated_length = None
+
+            # Create turn result (with full response for data)
             turn = TurnResult(
                 turn_number=turn_num,
                 topic=question.category,
@@ -284,11 +325,13 @@ class ConversationRunner:
                 is_correct=is_correct,
                 response_length=len(response),
                 hedging_count=self.count_hedging(response),
+                was_truncated=was_truncated,
+                truncated_length=truncated_length,
             )
             result.turns.append(turn)
 
             # Update history for next turn
-            history = messages + [{"role": "assistant", "content": response}]
+            history = messages + [{"role": "assistant", "content": history_response}]
 
         result.total_time_seconds = time.time() - start_time
         return result

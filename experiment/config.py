@@ -139,6 +139,11 @@ class ExperimentConfig:
     max_new_tokens: int = 512
     temperature: float = 0.0  # deterministic for reproducibility
 
+    # Interruption parameters
+    # For interrupt conditions, responses are truncated in conversation history
+    # to simulate the model being cut off mid-response
+    interrupt_truncate_tokens: int = 50  # tokens to keep in history for interrupt conditions
+
     @property
     def model_config(self) -> ModelConfig:
         return AVAILABLE_MODELS[self.model_size]
