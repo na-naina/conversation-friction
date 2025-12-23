@@ -1,0 +1,47 @@
+============================================================
+BEHAVIORAL ANALYSIS REPORT
+============================================================
+
+SUMMARY
+----------------------------------------
+Total conversations: 100
+Total turns: 1400
+Overall accuracy: 0.316
+
+Accuracy by condition:
+  complete_grateful: 0.351
+  complete_neutral: 0.311
+  interrupt_blunt: 0.263
+  interrupt_polite: 0.337
+
+DEGRADATION SLOPES
+----------------------------------------
+complete_grateful: slope=0.0036, R²=0.009, p=0.7523
+complete_neutral: slope=0.0040, R²=0.011, p=0.7186
+interrupt_polite: slope=-0.0021, R²=0.003, p=0.8483
+interrupt_blunt: slope=0.0046, R²=0.016, p=0.6663
+
+GROUP COMPARISONS
+----------------------------------------
+Interrupt vs Complete:
+  Interrupt mean slope: 0.0012 (±0.0283)
+  Complete mean slope: 0.0038 (±0.0281)
+  t-statistic: -0.448
+  p-value: 0.6553
+  Effect size (Cohen's d): -0.090
+
+Polite vs Blunt:
+  Polite mean slope: 0.0007 (±0.0299)
+  Blunt mean slope: 0.0043 (±0.0263)
+  t-statistic: -0.618
+  p-value: 0.5379
+  Effect size (Cohen's d): -0.125
+
+HEDGING ANALYSIS
+----------------------------------------
+complete_grateful: 0.04 markers/response (0.01 per 100 chars)
+complete_neutral: 0.03 markers/response (0.01 per 100 chars)
+interrupt_blunt: 0.01 markers/response (0.00 per 100 chars)
+interrupt_polite: 0.00 markers/response (0.00 per 100 chars)
+
+============================================================

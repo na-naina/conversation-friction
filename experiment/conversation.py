@@ -434,12 +434,14 @@ def run_experiment_batch(
             shuffled_topics = topics[:config.num_turns].copy()
             topic_rng.shuffle(shuffled_topics)
 
+            # Get questions ONCE for this conversation index
+            # All conditions will use the EXACT same questions
+            questions = dataset.get_questions_for_conversation(
+                shuffled_topics,
+                num_per_topic=1,
+            )
+
             for condition in conditions:
-                # Get questions for this conversation (same topic order for all conditions)
-                questions = dataset.get_questions_for_conversation(
-                    shuffled_topics,
-                    num_per_topic=1,
-                )
 
                 # Run conversation
                 conv_id = f"{condition.value}_{conv_idx:03d}"
