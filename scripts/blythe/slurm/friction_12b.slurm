@@ -16,7 +16,7 @@ set -e
 echo "Job ID: $SLURM_JOB_ID | Node: $SLURM_NODELIST | Start: $(date)"
 
 cd $SHARE/u5584851/conversation-friction
-module load GCC/12.3.0 && module load CUDA/12.1.1
+module load GCC/12.3.0 && module load CUDA/12.1.1 && module load Python/3.11.3-GCCcore-12.3.0
 
 export HF_HOME=$SHARE/u5584851/hf_cache
 export TRANSFORMERS_CACHE=$SHARE/u5584851/hf_cache
