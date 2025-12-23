@@ -1,0 +1,44 @@
+# Exclude from HPC sync
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+.claude/
+
+# Git
+.git/
+.gitignore
+
+# Local outputs (results come back from HPC)
+data/
+outputs/
+logs/
+
+# Checkpoints
+*checkpoint*.json
+
+# Temp files
+*.tmp
+*.bak
+*~
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
