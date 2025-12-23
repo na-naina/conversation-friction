@@ -39,11 +39,34 @@ This work connects several recent findings:
 
 ## Installation
 
+### Quick Install (Remote/Cloud)
 ```bash
-# Clone and install
-git clone <repo>
-cd mats-neel-cohort
+# One-liner for cloud instances
+pip install git+https://github.com/YOUR_USERNAME/conversation-friction.git
+
+# Or with SSH
+pip install git+ssh://git@github.com/YOUR_USERNAME/conversation-friction.git
+```
+
+### Development Install (Local)
+```bash
+git clone https://github.com/YOUR_USERNAME/conversation-friction.git
+cd conversation-friction
 pip install -e .
+
+# Or with requirements.txt
+pip install -r requirements.txt
+pip install -e .
+```
+
+### HuggingFace Authentication
+You'll need to authenticate with HuggingFace to download Gemma models:
+```bash
+# Option 1: CLI login
+huggingface-cli login
+
+# Option 2: Environment variable
+export HF_TOKEN=your_token_here
 ```
 
 ## Usage
