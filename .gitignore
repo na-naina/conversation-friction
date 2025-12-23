@@ -66,3 +66,4 @@ tutorial-example/
 
 # HuggingFace cache (optional - uncomment if you want to exclude)
 # ~/.cache/huggingface/
+.hf-token

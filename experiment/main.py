@@ -195,6 +195,11 @@ def main() -> None:
         default=42,
         help="Random seed",
     )
+    parser.add_argument(
+        "--collect-activations",
+        action="store_true",
+        help="Collect activations and SAE latents (slower but needed for mechanistic analysis)",
+    )
 
     args = parser.parse_args()
 
@@ -207,7 +212,11 @@ def main() -> None:
         num_topics=num_turns,  # One topic per turn
         num_conversations_per_condition=args.num_conversations,
         seed=args.seed,
+        collect_activations=args.collect_activations,
     )
+
+    if args.collect_activations:
+        print("NOTE: Activation collection enabled - this will be slower but collects data for SAE analysis")
 
     if args.mode in ["run", "both"]:
         results_path = run_behavioral_experiment(config, args.output_dir)

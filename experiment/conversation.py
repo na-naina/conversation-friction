@@ -22,6 +22,7 @@ from experiment.config import (
     INTERRUPT_CONDITIONS,
 )
 from experiment.dataset import Question, MMLUProDataset, check_answer
+from experiment.activation_hooks import ActivationCollectorWithGeneration, TurnActivations
 
 
 @dataclass
@@ -149,6 +150,15 @@ class ConversationRunner:
             re.IGNORECASE,
         )
 
+        # Setup activation collector if enabled
+        self._activation_collector = None
+        if config.collect_activations:
+            self._activation_collector = ActivationCollectorWithGeneration(
+                model=self.model,
+                layer_indices=config.model_config.activation_layers,
+                num_tokens=config.activation_tokens,
+            )
+
     def _load_model(self) -> tuple[AutoTokenizer, AutoModelForCausalLM]:
         """Load model and tokenizer."""
         model_id = self.config.model_config.hf_id
@@ -221,15 +231,28 @@ class ConversationRunner:
     def _generate_response(
         self,
         messages: list[dict[str, str]],
-    ) -> str:
+        collect_activations: bool = False,
+    ) -> tuple[str, dict[int, torch.Tensor] | None]:
         """Generate model response for messages.
 
         Args:
             messages: Conversation messages
+            collect_activations: Whether to collect activations
 
         Returns:
-            Model response text
+            Tuple of (response_text, layer_activations or None)
         """
+        # Use activation-collecting generation if enabled
+        if collect_activations and self._activation_collector is not None:
+            response, activations = self._activation_collector.generate_with_collection(
+                tokenizer=self.tokenizer,
+                messages=messages,
+                max_new_tokens=self.config.max_new_tokens,
+                temperature=self.config.temperature,
+            )
+            return response, activations
+
+        # Standard fast generation
         # Apply chat template
         prompt = self.tokenizer.apply_chat_template(
             messages,
@@ -254,7 +277,7 @@ class ConversationRunner:
         new_tokens = outputs[0, inputs["input_ids"].shape[1]:]
         response = self.tokenizer.decode(new_tokens, skip_special_tokens=True)
 
-        return response.strip()
+        return response.strip(), None
 
     def run_conversation(
         self,
@@ -297,9 +320,24 @@ class ConversationRunner:
             )
 
             # Generate response (with turn-level progress)
+            collect_acts = self.config.collect_activations
             print(f"  Turn {turn_num}/{len(questions)}: {question.category}...", end=" ", flush=True)
-            response = self._generate_response(messages)
+            response, turn_activations = self._generate_response(messages, collect_activations=collect_acts)
             print(f"({'✓' if check_answer(question, response)[0] else '✗'})", flush=True)
+
+            # Save activations if collected
+            activations_path = None
+            if turn_activations is not None:
+                act_dir = self.config.activations_dir / conversation_id
+                act_path = act_dir / f"turn_{turn_num:02d}.pt"
+                turn_act = TurnActivations(
+                    turn_number=turn_num,
+                    conversation_id=conversation_id,
+                    condition=condition.value,
+                    layer_activations=turn_activations,
+                )
+                turn_act.save(act_path)
+                activations_path = str(act_path)
 
             # Check answer
             is_correct, parsed = check_answer(question, response)
@@ -342,6 +380,7 @@ class ConversationRunner:
                 history_response=history_response,
                 was_truncated=was_truncated,
                 truncated_length=truncated_length,
+                activations_path=activations_path,
             )
             result.turns.append(turn)
 

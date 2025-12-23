@@ -33,12 +33,13 @@ else
     source venv/bin/activate
 fi
 
-echo "Starting 27B experiment..."
+echo "Starting 27B experiment with activation collection..."
 python -m experiment.main \
     --mode both \
     --model-size 27b \
     --num-turns 14 \
     --num-conversations 25 \
-    --seed 42
+    --seed 42 \
+    --collect-activations
 
 echo "Complete: $(date)"
