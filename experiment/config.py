@@ -61,6 +61,14 @@ class ModelConfig:
 
 # Gemma 3 model configurations
 # Note: SAE repos are from Gemma Scope 2
+GEMMA3_1B = ModelConfig(
+    name="gemma3-1b",
+    hf_id="google/gemma-3-1b-it",
+    sae_repo="google/gemma-scope-1b-pt-res",  # residual stream SAEs
+    num_layers=18,
+    hidden_size=1152,
+)
+
 GEMMA3_4B = ModelConfig(
     name="gemma3-4b",
     hf_id="google/gemma-3-4b-it",
@@ -86,6 +94,7 @@ GEMMA3_27B = ModelConfig(
 )
 
 AVAILABLE_MODELS = {
+    "1b": GEMMA3_1B,
     "4b": GEMMA3_4B,
     "12b": GEMMA3_12B,
     "27b": GEMMA3_27B,
@@ -101,7 +110,7 @@ class ExperimentConfig:
     seed: int = 42
 
     # Model selection
-    model_size: Literal["4b", "12b", "27b"] = "4b"
+    model_size: Literal["1b", "4b", "12b", "27b"] = "4b"
 
     # Conversation parameters
     num_turns: int = 15  # questions per conversation

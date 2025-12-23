@@ -159,9 +159,9 @@ def main() -> None:
     )
     parser.add_argument(
         "--model-size",
-        choices=["4b", "12b", "27b"],
+        choices=["1b", "4b", "12b", "27b"],
         default="4b",
-        help="Model size to use",
+        help="Model size to use (1b fits ~6GB VRAM, 4b needs ~10GB)",
     )
     parser.add_argument(
         "--num-turns",
