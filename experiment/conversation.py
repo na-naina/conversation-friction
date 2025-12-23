@@ -288,8 +288,10 @@ class ConversationRunner:
                 is_first_turn=(turn_num == 1),
             )
 
-            # Generate response
+            # Generate response (with turn-level progress)
+            print(f"  Turn {turn_num}/{len(questions)}: {question.category}...", end=" ", flush=True)
             response = self._generate_response(messages)
+            print(f"({'✓' if check_answer(question, response)[0] else '✗'})", flush=True)
 
             # Check answer
             is_correct, parsed = check_answer(question, response)

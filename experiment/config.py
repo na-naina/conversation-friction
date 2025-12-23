@@ -136,7 +136,7 @@ class ExperimentConfig:
     activation_tokens: int = 5  # number of tokens to collect at response start
 
     # Generation parameters
-    max_new_tokens: int = 512
+    max_new_tokens: int = 256  # reduced from 512 - MMLU answers don't need long responses
     temperature: float = 0.0  # deterministic for reproducibility
 
     # Interruption parameters
