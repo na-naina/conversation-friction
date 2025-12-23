@@ -62,36 +62,47 @@ class ModelConfig:
 # Gemma 3 model configurations
 # SAE repos follow pattern: google/gemma-scope-2-{size}-pt (for base model SAEs)
 # SAEs are trained on base (PT) models but transfer OK to instruction-tuned (IT)
+#
+# NOTE: activation_layers must match available SAE layers in resid_post!
+# Available SAE layers (resid_post subset):
+#   - 1B (26 layers): [7, 13, 17, 22]
+#   - 4B (34 layers): [9, 17, 22, 29]
+#   - 12B (48 layers): [12, 24, 31, 41]
+#   - 27B (62 layers): [16, 31, 40, 53]
 GEMMA3_1B = ModelConfig(
     name="gemma3-1b",
     hf_id="google/gemma-3-1b-it",  # We use IT for chat, but SAEs are from PT
     sae_repo="google/gemma-scope-2-1b-pt",  # Gemma Scope 2 format
-    num_layers=18,
+    num_layers=26,
     hidden_size=1152,
+    activation_layers=[7, 13, 22],  # SAE-available layers (early, mid, late)
 )
 
 GEMMA3_4B = ModelConfig(
     name="gemma3-4b",
     hf_id="google/gemma-3-4b-it",
     sae_repo="google/gemma-scope-2-4b-pt",
-    num_layers=26,
+    num_layers=34,
     hidden_size=2560,
+    activation_layers=[9, 17, 29],  # SAE-available layers (early, mid, late)
 )
 
 GEMMA3_12B = ModelConfig(
     name="gemma3-12b",
     hf_id="google/gemma-3-12b-it",
     sae_repo="google/gemma-scope-2-12b-pt",
-    num_layers=40,
+    num_layers=48,
     hidden_size=3840,
+    activation_layers=[12, 24, 41],  # SAE-available layers (early, mid, late)
 )
 
 GEMMA3_27B = ModelConfig(
     name="gemma3-27b",
     hf_id="google/gemma-3-27b-it",
     sae_repo="google/gemma-scope-2-27b-pt",
-    num_layers=46,
-    hidden_size=4608,
+    num_layers=62,
+    hidden_size=5376,
+    activation_layers=[16, 31, 53],  # SAE-available layers (early, mid, late)
 )
 
 AVAILABLE_MODELS = {
