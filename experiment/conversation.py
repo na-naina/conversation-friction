@@ -424,8 +424,9 @@ def run_experiment_batch(
     total_convos = len(conditions) * config.num_conversations_per_condition
 
     with tqdm(total=total_convos, desc="Running conversations") as pbar:
-        for condition in conditions:
-            for conv_idx in range(config.num_conversations_per_condition):
+        # Interleave conditions so each checkpoint has balanced data
+        for conv_idx in range(config.num_conversations_per_condition):
+            for condition in conditions:
                 # Get questions for this conversation
                 questions = dataset.get_questions_for_conversation(
                     topics[:config.num_turns],
