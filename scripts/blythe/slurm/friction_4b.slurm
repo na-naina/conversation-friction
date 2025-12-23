@@ -44,7 +44,7 @@ echo "Starting 4B experiment with activation collection..."
 python -m experiment.main \
     --mode both \
     --model-size 4b \
-    --num-turns 14 \
+    --num-turns 10 \
     --num-conversations 50 \
     --seed 42 \
     --collect-activations

@@ -37,7 +37,7 @@ echo "Starting 27B experiment with activation collection..."
 python -m experiment.main \
     --mode both \
     --model-size 27b \
-    --num-turns 14 \
+    --num-turns 10 \
     --num-conversations 25 \
     --seed 42 \
     --collect-activations
