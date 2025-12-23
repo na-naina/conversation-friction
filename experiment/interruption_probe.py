@@ -20,7 +20,7 @@ from tqdm import tqdm
 from transformers import AutoModelForCausalLM, AutoTokenizer
 
 from experiment.config import ExperimentConfig, ModelConfig, AVAILABLE_MODELS
-from experiment.activation_hooks import ActivationCollector
+from experiment.activation_hooks import ActivationCollectorWithGeneration
 
 
 @dataclass
@@ -138,9 +138,10 @@ class InterruptionProbeRunner:
         self.model.eval()
 
         # Setup activation collector
-        self.activation_collector = ActivationCollector(
+        self.activation_collector = ActivationCollectorWithGeneration(
             model=self.model,
             layer_indices=model_config.activation_layers,
+            num_tokens=5,
         )
 
     def _generate(self, messages: list[dict], max_tokens: int = 512) -> str:
@@ -173,33 +174,15 @@ class InterruptionProbeRunner:
     def _collect_activations_at_response_start(
         self,
         messages: list[dict],
-        num_tokens: int = 5,
     ) -> dict[int, torch.Tensor]:
         """Collect activations at the start of model's response."""
-        # Generate a short response to get activations
-        prompt = self.tokenizer.apply_chat_template(
-            messages, tokenize=False, add_generation_prompt=True
+        # Use the activation collector's generate_with_collection method
+        _, activations = self.activation_collector.generate_with_collection(
+            tokenizer=self.tokenizer,
+            messages=messages,
+            max_new_tokens=10,  # Just need a few tokens for activation collection
+            temperature=0.0,  # Deterministic
         )
-        inputs = self.tokenizer(prompt, return_tensors="pt").to(self.device)
-        prompt_len = inputs["input_ids"].shape[1]
-
-        # Generate a few tokens
-        with torch.no_grad():
-            outputs = self.model.generate(
-                **inputs,
-                max_new_tokens=num_tokens,
-                do_sample=False,  # Deterministic for activation collection
-                pad_token_id=self.tokenizer.pad_token_id or self.tokenizer.eos_token_id,
-            )
-
-        # Collect activations for those tokens
-        generated_ids = outputs[0].unsqueeze(0)
-        activations = self.activation_collector.collect(
-            generated_ids,
-            start_pos=prompt_len,
-            num_tokens=num_tokens,
-        )
-
         return activations
 
     def run_trial(
