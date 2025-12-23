@@ -199,9 +199,9 @@ class InterruptionProbeRunner:
         3. Send follow-up prompt
         4. Collect activations at start of follow-up response
         """
-        # Step 1: Initial exchange
+        # Step 1: Initial exchange - let model complete naturally (high limit)
         messages = [{"role": "user", "content": prompt_config["initial"]}]
-        initial_response = self._generate(messages, max_tokens=300)
+        initial_response = self._generate(messages, max_tokens=1024)
 
         # Step 2: Apply condition
         if condition == "interrupt":
