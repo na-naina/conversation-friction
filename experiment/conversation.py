@@ -423,13 +423,21 @@ def run_experiment_batch(
     results = []
     total_convos = len(conditions) * config.num_conversations_per_condition
 
+    import random
+
     with tqdm(total=total_convos, desc="Running conversations") as pbar:
         # Interleave conditions so each checkpoint has balanced data
         for conv_idx in range(config.num_conversations_per_condition):
+            # Shuffle topic order for this conversation index
+            # Use deterministic seed so all conditions get same topic order
+            topic_rng = random.Random(config.seed + conv_idx)
+            shuffled_topics = topics[:config.num_turns].copy()
+            topic_rng.shuffle(shuffled_topics)
+
             for condition in conditions:
-                # Get questions for this conversation
+                # Get questions for this conversation (same topic order for all conditions)
                 questions = dataset.get_questions_for_conversation(
-                    topics[:config.num_turns],
+                    shuffled_topics,
                     num_per_topic=1,
                 )
 
