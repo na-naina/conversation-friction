@@ -42,15 +42,15 @@ This work connects several recent findings:
 ### Quick Install (Remote/Cloud)
 ```bash
 # One-liner for cloud instances
-pip install git+https://github.com/YOUR_USERNAME/conversation-friction.git
+pip install git+https://github.com/na-naina/conversation-friction.git
 
 # Or with SSH
-pip install git+ssh://git@github.com/YOUR_USERNAME/conversation-friction.git
+pip install git+ssh://git@github.com/na-naina/conversation-friction.git
 ```
 
 ### Development Install (Local)
 ```bash
-git clone https://github.com/YOUR_USERNAME/conversation-friction.git
+git clone https://github.com/na-naina/conversation-friction.git
 cd conversation-friction
 pip install -e .
 

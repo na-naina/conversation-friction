@@ -24,7 +24,7 @@ classifiers = [
 ]
 
 [project.urls]
-Repository = "https://github.com/YOUR_USERNAME/conversation-friction"
+Repository = "https://github.com/na-naina/conversation-friction"
 
 dependencies = [
     "torch>=2.0.0",
