@@ -1,6 +1,6 @@
 #!/bin/bash
-#SBATCH --job-name=probe_4b
-#SBATCH --time=4:00:00
+#SBATCH --job-name=probe_12b
+#SBATCH --time=6:00:00
 #SBATCH --partition=gpu
 #SBATCH --nodes=1
 #SBATCH --ntasks-per-node=1
@@ -10,7 +10,7 @@
 #SBATCH --output=logs/%x_%j.out
 #SBATCH --error=logs/%x_%j.err
 
-# Clean Interruption Probe Experiment: Gemma 3 4B
+# Clean Interruption Probe Experiment: Gemma 3 12B
 # This isolates the "was I interrupted?" signal for interpretability
 
 set -e
@@ -34,9 +34,9 @@ else
     source venv/bin/activate
 fi
 
-echo "Starting clean interruption probe experiment (4B)..."
+echo "Starting clean interruption probe experiment (12B)..."
 python -m experiment.interruption_probe \
-    --model-size 4b \
+    --model-size 12b \
     --num-repeats 20 \
     --truncate-tokens 50
 
